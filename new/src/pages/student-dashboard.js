@@ -6,6 +6,7 @@ import {
   getDocs,
   doc,
   updateDoc,
+  getDoc,
   query,
   orderBy,
   where
@@ -134,51 +135,61 @@ export default function StudentDashboard() {
           </div>
         </motion.div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {/* Feature Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
+            whileHover={{ scale: 1.05, y: -5 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl p-6 border border-purple-500/30 cursor-pointer hover:shadow-2xl hover:shadow-purple-500/20"
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-300">Available Events</p>
-                <p className="text-3xl font-bold text-white">{events.length}</p>
-              </div>
-              <Calendar className="w-8 h-8 text-purple-400" />
+            <div className="flex flex-col items-center text-center">
+              <Calendar className="w-12 h-12 text-white mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">Events</h3>
+              <p className="text-purple-200 text-sm">Browse and discover upcoming events</p>
             </div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
+            whileHover={{ scale: 1.05, y: -5 }}
+            transition={{ delay: 0.1, type: "spring", stiffness: 300 }}
+            className="bg-gradient-to-br from-green-600 to-green-800 rounded-xl p-6 border border-green-500/30 cursor-pointer hover:shadow-2xl hover:shadow-green-500/20"
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-300">Registered Events</p>
-                <p className="text-3xl font-bold text-green-400">{registeredEvents.length}</p>
-              </div>
-              <CheckCircle className="w-8 h-8 text-green-400" />
+            <div className="flex flex-col items-center text-center">
+              <CheckCircle className="w-12 h-12 text-white mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">My Events</h3>
+              <p className="text-green-200 text-sm">View your registered events</p>
             </div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
+            whileHover={{ scale: 1.05, y: -5 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 300 }}
+            className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl p-6 border border-blue-500/30 cursor-pointer hover:shadow-2xl hover:shadow-blue-500/20"
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-300">Upcoming Events</p>
-                <p className="text-3xl font-bold text-blue-400">
-                  {events.filter(event => new Date(event.date) >= new Date()).length}
-                </p>
-              </div>
-              <Clock className="w-8 h-8 text-blue-400" />
+            <div className="flex flex-col items-center text-center">
+              <Clock className="w-12 h-12 text-white mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">My Attendance</h3>
+              <p className="text-blue-200 text-sm">Track your event attendance</p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            transition={{ delay: 0.3, type: "spring", stiffness: 300 }}
+            className="bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl p-6 border border-yellow-500/30 cursor-pointer hover:shadow-2xl hover:shadow-yellow-500/20"
+          >
+            <div className="flex flex-col items-center text-center">
+              <User className="w-12 h-12 text-white mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">My Certificates</h3>
+              <p className="text-yellow-200 text-sm">Download your certificates</p>
             </div>
           </motion.div>
         </div>

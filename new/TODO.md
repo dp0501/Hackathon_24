@@ -9,3 +9,4 @@
 - [x] Install new dependencies
 - [x] Test admin and student login flows
 - [x] Test all admin dashboard functionalities
+- [x] Add real-time updates to admin dashboard using Firestore listeners

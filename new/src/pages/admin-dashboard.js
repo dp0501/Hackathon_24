@@ -10,10 +10,11 @@ import {
   deleteDoc,
   query,
   orderBy,
-  where
+  where,
+  onSnapshot
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Calendar,
   Users,
@@ -27,7 +28,15 @@ import {
   X,
   Eye,
   CheckCircle,
-  XCircle
+  XCircle,
+  Save,
+  UserPlus,
+  CalendarPlus,
+  TrendingUp,
+  Activity,
+  Clock,
+  MapPin,
+  Tag
 } from 'lucide-react';
 
 export default function AdminDashboard() {
@@ -68,6 +77,7 @@ export default function AdminDashboard() {
         if (userData?.role === 'admin') {
           setUser(user);
           loadData();
+          setupRealtimeListeners();
         } else {
           router.push('/login');
         }
@@ -79,6 +89,28 @@ export default function AdminDashboard() {
 
     return () => unsubscribe();
   }, []);
+
+  const setupRealtimeListeners = () => {
+    // Real-time listener for events
+    const eventsQuery = query(collection(db, 'events'), orderBy('date', 'desc'));
+    const eventsUnsubscribe = onSnapshot(eventsQuery, (snapshot) => {
+      const eventsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setEvents(eventsData);
+    });
+
+    // Real-time listener for students
+    const studentsQuery = query(collection(db, 'users'), where('role', '==', 'student'));
+    const studentsUnsubscribe = onSnapshot(studentsQuery, (snapshot) => {
+      const studentsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setStudents(studentsData);
+    });
+
+    // Return cleanup function
+    return () => {
+      eventsUnsubscribe();
+      studentsUnsubscribe();
+    };
+  };
 
   const loadData = async () => {
     try {
